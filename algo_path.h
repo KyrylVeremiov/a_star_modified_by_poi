@@ -13,13 +13,13 @@ vector<pair<int,int>>  reconstruct_path(pair<int, int> start, pair<int, int> des
     }
     std::reverse(path.begin(),path.end());
     return path;
-};
+}
 
 int manhattan_metric(pair<int,int> x, pair<int,int> y){
     return abs(x.first-y.first)+abs(x.second-y.second);
 }
 
-pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int N,pair<int,int> start,pair<int,int> destination, bool Dijkstra){
+pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>  get_path(int** A,int M,int N,pair<int,int> start,pair<int,int> destination, int  option){
     int (*h) (pair<int,int> , pair<int,int> );
     h= &manhattan_metric;
     int (*dist) (pair<int,int> , pair<int,int> );
@@ -41,7 +41,7 @@ pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int 
         auto x_pointer=opened.begin();
         pair <int,int> x=x_pointer->second;
         if (x==destination){
-            return {reconstruct_path(start,destination,previous),closed};
+            return {reconstruct_path(start,destination,previous),{value,closed}};
         }
         else{
             opened.erase(x_pointer);
@@ -80,18 +80,27 @@ pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int 
                     //TODO add interesting. How much on this
                     int n_g=g[x]+dist(n,x);
                     if(g[n]==0){
-                        if(Dijkstra){
+                        if(option==0){//Dijkstra
                             opened.insert({n_g,n});
                             previous[n]=x;
                             g[n]=n_g;
                             value[n]=n_g+h(n,destination);
                         }
-                        else{//A*
+                        else if(option==1){//A*
                             previous[n]=x;
                             g[n]=n_g;
                             value[n]=n_g+h(n,destination);
                             opened.insert({value[n],n});
-                        };
+                        }
+                        else if(option==2){// A* considering POI
+                            previous[n]=x;
+                            if(A[n.first][n.second]>=CODE_POI){
+                                n_g-=POI_WEIGHT*A[n.first][n.second];
+                            }
+                            g[n]=n_g;
+                            value[n]=n_g+h(n,destination);
+                            opened.insert({value[n],n});
+                        }
                     }
                     else{
                         if(g[n]<n_g){
@@ -106,5 +115,5 @@ pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int 
         }
     }
 
-    return  {vector<pair<int,int>>(),closed};
+    return  {vector<pair<int,int>>(),{value,closed}};
 }

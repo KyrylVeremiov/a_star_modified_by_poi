@@ -16,14 +16,23 @@ int main(){
     pair<int,int> start_point=initialize_result.second.second.first;
     pair<int,int> destination_point= initialize_result.second.second.second;
 
-    auto result= get_path(Graph,M,N,start_point,destination_point, false);
+    auto result= get_path(Graph,M,N,start_point,destination_point, 2);
     vector<pair<int,int>> path=result.first;
-    map<pair<int, int>, bool> closed = result.second;
+    map<pair<int, int>, int> value = result.second.first;
+    map<pair<int, int>, bool> closed = result.second.second;
     if(!path.empty()){
-        draw_path(Graph,M,N,path,closed,true);
+        draw_path(Graph,M,N,path,closed,true,false);
     }
 
-    drawMatrix(Graph,M,N);
+    result= get_path(Graph,M,N,start_point,destination_point, 1);
+    path=result.first;
+    value = result.second.first;
+    closed = result.second.second;
+    if(!path.empty()){
+        draw_path(Graph,M,N,path,closed,true,true);
+    }
+
+    drawMatrix(Graph,M,N,value, false);
     return 0;
 }
 

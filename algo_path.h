@@ -19,7 +19,7 @@ int manhattan_metric(pair<int,int> x, pair<int,int> y){
     return abs(x.first-y.first)+abs(x.second-y.second);
 }
 
-pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int N,pair<int,int> start,pair<int,int> destination){
+pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int N,pair<int,int> start,pair<int,int> destination, bool Dijkstra){
     int (*h) (pair<int,int> , pair<int,int> );
     h= &manhattan_metric;
     int (*dist) (pair<int,int> , pair<int,int> );
@@ -37,6 +37,7 @@ pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int 
     opened.insert({value[start],start});
 
     while (!opened.empty()){
+//        drawMatrix(A,N,M);
         auto x_pointer=opened.begin();
         pair <int,int> x=x_pointer->second;
         if (x==destination){
@@ -79,10 +80,18 @@ pair<vector<pair<int,int>>,map<pair<int,int>,bool>>  get_path(int** A,int M,int 
                     //TODO add interesting. How much on this
                     int n_g=g[x]+dist(n,x);
                     if(g[n]==0){
-                        opened.insert({n_g,n});
-                        previous[n]=x;
-                        g[n]=n_g;
-                        value[n]=n_g+h(n,destination);
+                        if(Dijkstra){
+                            opened.insert({n_g,n});
+                            previous[n]=x;
+                            g[n]=n_g;
+                            value[n]=n_g+h(n,destination);
+                        }
+                        else{//A*
+                            previous[n]=x;
+                            g[n]=n_g;
+                            value[n]=n_g+h(n,destination);
+                            opened.insert({value[n],n});
+                        };
                     }
                     else{
                         if(g[n]<n_g){

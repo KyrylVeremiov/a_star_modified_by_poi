@@ -16,7 +16,7 @@ int main(){
     pair<int,int> start_point=initialize_result.second.second.first;
     pair<int,int> destination_point= initialize_result.second.second.second;
 
-    auto result= get_path(Graph,M,N,start_point,destination_point);
+    auto result= get_path(Graph,M,N,start_point,destination_point, false);
     vector<pair<int,int>> path=result.first;
     map<pair<int, int>, bool> closed = result.second;
     if(!path.empty()){

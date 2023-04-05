@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 #pragma once
 vector<pair<int,int>>  reconstruct_path(pair<int, int> start, pair<int, int> destination,map <pair<int,int>,pair<int,int>> previous){
@@ -15,14 +16,30 @@ vector<pair<int,int>>  reconstruct_path(pair<int, int> start, pair<int, int> des
     return path;
 }
 
-int manhattan_metric(pair<int,int> x, pair<int,int> y){
+float manhattan_metric(pair<int,int> x, pair<int,int> y){
     return abs(x.first-y.first)+abs(x.second-y.second);
 }
 
+float euclidean_metric(pair<int,int> x, pair<int,int> y){
+    return sqrt((x.first-y.first)*(x.first-y.first)+(x.second-y.second)*(x.second-y.second));
+}
+float zero_f(pair<int,int> x, pair<int,int> y){
+    return 0;
+}
+
 pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>  get_path(int** A,int M,int N,pair<int,int> start,pair<int,int> destination, int  option){
-    int (*h) (pair<int,int> , pair<int,int> );
-    h= &manhattan_metric;
-    int (*dist) (pair<int,int> , pair<int,int> );
+//                    option==0 ->Dijkstra
+//                    option==0 ->A*
+//                    option==0 ->A* considering POI
+    float (*h) (pair<int,int> , pair<int,int> );//where value- floor
+    h= &euclidean_metric;
+    //    h= &manhattan_metric;
+
+    if(option==0){
+        h=&zero_f;
+    }
+
+    float (*dist) (pair<int,int> , pair<int,int> );
     dist= &manhattan_metric;
 
     map<pair<int,int>,bool> closed;
@@ -79,35 +96,15 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
                 if(!closed[n]){
                     //TODO add interesting. How much on this
                     int n_g=g[x]+dist(n,x);
-                    if(g[n]==0){
-                        if(option==0){//Dijkstra
-                            opened.insert({n_g,n});
-                            previous[n]=x;
-                            g[n]=n_g;
-                            value[n]=n_g+h(n,destination);
-                        }
-                        else if(option==1){//A*
-                            previous[n]=x;
-                            g[n]=n_g;
-                            value[n]=n_g+h(n,destination);
-                            opened.insert({value[n],n});
-                        }
-                        else if(option==2){// A* considering POI
-                            previous[n]=x;
-                            if(A[n.first][n.second]>=CODE_POI){
-                                n_g-=POI_WEIGHT*A[n.first][n.second];
-                            }
-                            g[n]=n_g;
-                            value[n]=n_g+h(n,destination);
-                            opened.insert({value[n],n});
-                        }
+
+                    if(option==2 && A[n.first][n.second]>=CODE_POI){// A* considering POI
+                        n_g-=POI_WEIGHT*A[n.first][n.second];
                     }
-                    else{
-                        if(g[n]<n_g){
-                            previous[n]=x;
-                            g[n]=n_g;
-                            value[n]=n_g+h(n,destination);
-                        }
+                    if(g.find(n)==g.end() ||g[n]>n_g){
+                        previous[n]=x;
+                        g[n]=n_g;
+                        value[n]=n_g+h(n,destination);
+                        opened.insert({value[n],n});
                     }
                 }
             }

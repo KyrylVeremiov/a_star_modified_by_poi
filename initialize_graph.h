@@ -17,6 +17,10 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
         M=20;
         N=30;
     }
+    else if(option==2){
+        M=35;
+        N=59;
+    }
     int** A=new int*[M];
 
     for (int i = 0; i < M; ++i) {
@@ -29,9 +33,6 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
     if(option==0){
         start_point={8,6};
         destination_point={ 10,16};
-
-        A[start_point.first][start_point.second]=CODE_START;
-        A[destination_point.first][destination_point.second]=CODE_DESTINATION;
 
         A[7][7]=CODE_BARRIER;
         A[6][7]=CODE_BARRIER;
@@ -82,9 +83,6 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
         start_point={8,6};
         destination_point={ 10,16};
 
-        A[start_point.first][start_point.second]=CODE_START;
-        A[destination_point.first][destination_point.second]=CODE_DESTINATION;
-
         A[7][7]=CODE_BARRIER;
         A[6][7]=CODE_BARRIER;
         A[6][6]=CODE_BARRIER;
@@ -133,6 +131,137 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
         A[15][12]=CODE_POI+9;
         A[13][9]=CODE_POI+2;
     }
-    std::pair(start_point,destination_point);
+    else if(option==2){
+        start_point={33,57};
+        destination_point={ 2,3};
+
+        A[7][7]=CODE_BARRIER;
+
+        A[1][5]=CODE_BARRIER;
+        A[2][5]=CODE_BARRIER;
+        A[3][5]=CODE_BARRIER;
+        A[4][5]=CODE_BARRIER;
+        A[5][5]=CODE_BARRIER;
+        A[6][5]=CODE_BARRIER;
+        A[6][6]=CODE_BARRIER;
+        A[7][6]=CODE_BARRIER;
+        A[8][6]=CODE_BARRIER;
+        A[9][6]=CODE_BARRIER;
+        A[10][6]=CODE_BARRIER;
+        A[10][5]=CODE_BARRIER;
+        A[10][4]=CODE_BARRIER;
+        A[10][3]=CODE_BARRIER;
+        A[10][2]=CODE_BARRIER;
+        A[11][2]=CODE_BARRIER;
+
+        A[6][10]=CODE_BARRIER;
+        A[6][11]=CODE_BARRIER;
+        A[5][11]=CODE_BARRIER;
+        A[7][11]=CODE_BARRIER;
+
+        A[12][6]=CODE_BARRIER;
+        A[12][7]=CODE_BARRIER;
+        A[12][8]=CODE_BARRIER;
+        A[12][9]=CODE_BARRIER;
+        A[13][9]=CODE_BARRIER;
+        A[11][9]=CODE_BARRIER;
+        A[11][10]=CODE_BARRIER;
+        A[11][11]=CODE_BARRIER;
+        A[11][12]=CODE_BARRIER;
+        A[11][13]=CODE_BARRIER;
+        A[11][14]=CODE_BARRIER;
+        A[11][15]=CODE_BARRIER;
+        A[11][16]=CODE_BARRIER;
+        A[11][17]=CODE_BARRIER;
+        A[11][18]=CODE_BARRIER;
+        A[9][17]=CODE_BARRIER;
+        A[10][17]=CODE_BARRIER;
+
+
+        A[14][15]=CODE_BARRIER;
+        A[14][16]=CODE_BARRIER;
+        A[15][16]=CODE_BARRIER;
+        A[15][17]=CODE_BARRIER;
+        A[15][18]=CODE_BARRIER;
+        A[15][19]=CODE_BARRIER;
+        A[15][20]=CODE_BARRIER;
+        A[15][21]=CODE_BARRIER;
+
+        A[13][28]=CODE_BARRIER;
+        A[14][28]=CODE_BARRIER;
+        A[15][28]=CODE_BARRIER;
+        A[15][27]=CODE_BARRIER;
+        A[15][26]=CODE_BARRIER;
+        A[15][25]=CODE_BARRIER;
+        A[15][24]=CODE_BARRIER;
+        A[16][24]=CODE_BARRIER;
+
+        A[20][25]=CODE_BARRIER;
+        A[20][26]=CODE_BARRIER;
+        A[20][27]=CODE_BARRIER;
+        A[19][27]=CODE_BARRIER;
+        A[18][27]=CODE_BARRIER;
+        A[17][27]=CODE_BARRIER;
+        A[18][28]=CODE_BARRIER;
+        A[18][29]=CODE_BARRIER;
+        A[18][30]=CODE_BARRIER;
+
+        A[18][22]=CODE_BARRIER;
+        A[19][22]=CODE_BARRIER;
+        A[20][22]=CODE_BARRIER;
+        A[21][22]=CODE_BARRIER;
+        A[22][22]=CODE_BARRIER;
+        A[23][22]=CODE_BARRIER;
+        A[23][21]=CODE_BARRIER;
+        A[23][20]=CODE_BARRIER;
+        A[24][20]=CODE_BARRIER;
+        A[25][20]=CODE_BARRIER;
+        A[26][20]=CODE_BARRIER;
+        A[26][21]=CODE_BARRIER;
+        A[26][19]=CODE_BARRIER;
+        A[26][18]=CODE_BARRIER;
+        A[26][17]=CODE_BARRIER;
+        A[26][16]=CODE_BARRIER;
+
+        A[25][23]=CODE_BARRIER;
+        A[26][23]=CODE_BARRIER;
+        A[27][23]=CODE_BARRIER;
+
+        A[26][27]=CODE_BARRIER;
+        A[27][27]=CODE_BARRIER;
+        A[28][27]=CODE_BARRIER;
+        A[29][27]=CODE_BARRIER;
+        A[30][27]=CODE_BARRIER;
+
+        A[29][58]=CODE_BARRIER;
+        A[29][57]=CODE_BARRIER;
+        A[29][56]=CODE_BARRIER;
+        A[29][55]=CODE_BARRIER;
+        A[29][54]=CODE_BARRIER;
+        A[30][54]=CODE_BARRIER;
+
+        A[27][57]=CODE_BARRIER;
+        A[27][56]=CODE_BARRIER;
+        A[27][55]=CODE_BARRIER;
+        A[27][54]=CODE_BARRIER;
+        A[27][53]=CODE_BARRIER;
+        A[27][52]=CODE_BARRIER;
+
+
+        A[2][10]=CODE_POI+4;
+        A[10][9]=CODE_POI;
+        A[12][22]=CODE_POI+9;
+        A[18][13]=CODE_POI+4;
+        A[23][22]=CODE_POI+2;
+        A[27][30]=CODE_POI+5;
+        A[31][27]=CODE_POI+1;
+        A[32][36]=CODE_POI+7;
+        A[33][29]=CODE_POI+9;
+        A[32][24]=CODE_POI+4;
+
+    }
+
+    A[start_point.first][start_point.second]=CODE_START;
+    A[destination_point.first][destination_point.second]=CODE_DESTINATION;
     return std::pair(A,std::pair(std::pair<int,int>(M,N),std::pair(start_point,destination_point)));
 }

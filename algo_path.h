@@ -3,8 +3,11 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include "kernel.h"
 
 #pragma once
+
+double** matrix_sum(double **A, double **B,int M,int N);
 vector<pair<int,int>>  reconstruct_path(pair<int, int> start, pair<int, int> destination,map <pair<int,int>,pair<int,int>> previous){
     vector<pair<int,int>> path;
     pair<int,int> current=previous[destination];
@@ -16,32 +19,77 @@ vector<pair<int,int>>  reconstruct_path(pair<int, int> start, pair<int, int> des
     return path;
 }
 
-float manhattan_metric(pair<int,int> x, pair<int,int> y){
+double manhattan_metric(pair<int,int> x, pair<int,int> y){
     return abs(x.first-y.first)+abs(x.second-y.second);
 }
 
-float euclidean_metric(pair<int,int> x, pair<int,int> y){
+double euclidean_metric(pair<int,int> x, pair<int,int> y){
     return sqrt((x.first-y.first)*(x.first-y.first)+(x.second-y.second)*(x.second-y.second));
 }
-float zero_f(pair<int,int> x, pair<int,int> y){
+double zero_f(pair<int,int> x, pair<int,int> y){
     return 0;
 }
 
-pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>  get_path(int** A,int M,int N,pair<int,int> start,pair<int,int> destination, int  option){
-//                    option==0 ->Dijkstra
-//                    option==0 ->A*
-//                    option==0 ->A* considering POI
-    float (*h) (pair<int,int> , pair<int,int> );//where value- floor
+double** copy_matrix(int** G,int M, int N){
+    double** A=new double*[M];
+
+    for (int i = 0; i < M; ++i) {
+        A[i]=new double[N];
+        for (int j = 0; j < N; ++j) {
+            A[i][j]=G[i][j];
+        }
+    }
+    return A;
+}
+
+/**
+                  option_algo==0 ->Dijkstra
+                  option_algo==0 ->A*
+                option_algo==0 ->A* considering POI
+
+                option_kernel==0 -> no kernel
+                option_kernel==1 -> using kernel
+**/
+pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
+        get_path(int** G,vector<pair<int,int>> POIs,int M,int N,pair<int,int> start,pair<int,int> destination,
+                 int  option_algo,int option_kernel){
+    double (*h) (pair<int,int> , pair<int,int> );//where value- floor
     h= &euclidean_metric;
     //    h= &manhattan_metric;
 
-    if(option==0){
+    if(option_algo == 0){
         h=&zero_f;
     }
 
-    float (*dist) (pair<int,int> , pair<int,int> );
+    double (*dist) (pair<int,int> , pair<int,int> );
 //    dist= &manhattan_metric;
     dist= &euclidean_metric;
+
+    double** A=copy_matrix(G,M,N);
+
+    double** filter= new double* [M];
+    if(option_kernel){
+        for (int i = 0; i < M; ++i) {
+            filter[i]=new double[N];
+            for (int j = 0; j < N; ++j) {
+                filter[i][j]=0;
+            }
+        }
+        for(pair<int,int> p: POIs){
+            double** kernel=get_gaussian_kernel(p,SIGMA,M,N);
+            filter= matrix_sum(filter,kernel,M,N);
+        }
+    }
+
+    if(option_kernel==1&& option_algo==1){
+        for(int i=0; i<M;i++){
+            for (int j = 0; j < N; ++j) {
+                if(A[i][j]==CODE_EMPTY||A[i][j]==CODE_POI){
+                    A[i][j]+=filter[i][j]*FILTER_WEIGHT;
+                }
+            }
+        }
+    }
 
     map<pair<int,int>,bool> closed;
     multimap<int,pair<int,int>> opened;
@@ -96,10 +144,15 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
             for(pair<int,int> n : neighbors){
                 if(!closed[n]){
                     //TODO add interesting. How much on this
-                    int n_g=g[x]+dist(n,x);
+                    double n_g=g[x]+dist(n,x);
 
-                    if(option==2 && A[n.first][n.second]>=CODE_POI){// A* considering POI
-                        n_g-=POI_WEIGHT*A[n.first][n.second];
+                    if(option_algo == 2){
+                        if(option_kernel==0&& A[n.first][n.second] >= CODE_POI){// A* considering POI
+                            n_g-=POI_WEIGHT*A[n.first][n.second];
+                        }
+                        else if(option_kernel==1){
+                            n_g-=FILTER_WEIGHT*filter[n.first][n.second]+POI_WEIGHT*A[n.first][n.second];
+                        }
                     }
                     if(g.find(n)==g.end() ||g[n]>n_g){
                         previous[n]=x;
@@ -114,4 +167,15 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
     }
 
     return  {vector<pair<int,int>>(),{value,closed}};
+}
+
+double ** matrix_sum(double **A, double **B,int M, int N) {
+    double **C= new double*[M];
+    for (int i = 0; i < M; ++i) {
+        C[i]=new double[N];
+        for (int j = 0; j < N; ++j) {
+            C[i][j]=A[i][j]+B[i][j];
+        }
+    }
+    return C;
 }

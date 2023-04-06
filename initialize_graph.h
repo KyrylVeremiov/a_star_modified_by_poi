@@ -2,12 +2,26 @@
 #include "constants.h"
 
 #pragma once
-std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,std::pair<int, int>>>> initialize_graph(int option){
+using namespace std;
+
+vector<pair<int,int>> get_POIs(int** A, int M, int N){
+    vector<pair<int,int>> POIs;
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if(A[i][j]>=CODE_POI){
+                POIs.emplace_back(i,j);
+            }
+        }
+    }
+    return POIs;
+}
+
+pair<pair<int **,vector<pair<int,int>>>,pair<std::pair<int, int>, pair<pair<int, int>,pair<int, int>>>> initialize_graph(int option){
     int M=0;
     int N=0;
 
-    std::pair <int,int> start_point;
-    std::pair <int,int> destination_point;
+    pair <int,int> start_point;
+    pair <int,int> destination_point;
 
     if (option==0){
         M=20;
@@ -75,7 +89,7 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
 
         A[6][9]=CODE_POI;
         A[14][18]=CODE_POI+4;
-        A[15][12]=CODE_POI+9;
+        A[15][12]=CODE_POI+8;
         A[13][9]=CODE_POI+2;
     }
     else if(option==1){
@@ -138,12 +152,12 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
 
 
 
-        A[7][37]=CODE_POI +9;
+        A[7][37]=CODE_POI +8;
         A[14][18]=CODE_POI+4;
-        A[15][12]=CODE_POI+9;
+        A[15][12]=CODE_POI+8;
         A[13][9]=CODE_POI+2;
         A[11][30]=CODE_POI+2;
-        A[25][40]=CODE_POI+9;
+        A[25][40]=CODE_POI+8;
 //        A[9][28]=CODE_POI;
         A[21][33]=CODE_POI+4;
 //        A[26][25]=CODE_POI;
@@ -269,18 +283,18 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
 
         A[2][10]=CODE_POI+4;
         A[10][9]=CODE_POI;
-        A[12][22]=CODE_POI+9;
+        A[12][22]=CODE_POI+8;
         A[18][13]=CODE_POI+4;
         A[23][22]=CODE_POI+2;
         A[27][30]=CODE_POI+5;
         A[31][27]=CODE_POI+1;
         A[32][36]=CODE_POI+7;
-        A[33][29]=CODE_POI+9;
+        A[33][29]=CODE_POI+8;
         A[32][24]=CODE_POI+4;
-
     }
 
+    vector<pair<int,int>> POIs=get_POIs(A,M,N);
     A[start_point.first][start_point.second]=CODE_START;
     A[destination_point.first][destination_point.second]=CODE_DESTINATION;
-    return std::pair(A,std::pair(std::pair<int,int>(M,N),std::pair(start_point,destination_point)));
+    return pair(pair(A,POIs),pair(pair<int,int>(M,N),pair(start_point,destination_point)));
 }

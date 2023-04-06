@@ -1,14 +1,19 @@
 #pragma once
 
 static const int CODE_EMPTY=0;
-const int CODE_START=-1;
-const int CODE_DESTINATION=-2;
-static const int CODE_BARRIER=-3;
-const int CODE_PATH=-5;
-const int CODE_SECOND_PATH=-6;
-const int CODE_VIEWED=-7;
-const int CODE_POI=10;//From 10 to 19
-const int POI_WEIGHT=1;
+const int CODE_START=-100;
+const int CODE_DESTINATION=-200;
+static const int CODE_BARRIER=-300;
+const int CODE_PATH=-500;
+const int CODE_SECOND_PATH=-600;
+const int CODE_VIEWED=-700;
+const int CODE_POI=1;//From 1 to 9
+
+//const double SIGMA=1;
+//const double POI_WEIGHT=1;
+const double FILTER_WEIGHT=1;
+const double POI_WEIGHT=10;
+const double SIGMA=0.1;
 
 const int COLOR_EMPTY=176;
 const int COLOR_POI=64;
@@ -21,4 +26,3 @@ const int COLOR_SECOND_PATH=80;
 const int COLOR_STANDARD=15;
 
 const char PRINTING_CHAR=' ';
-

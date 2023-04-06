@@ -79,7 +79,7 @@ void drawMatrix(int** A,int M, int N, const map<pair<int,int>,int>& value,bool p
             else if(A[i][j] >= CODE_POI){
                 SetConsoleTextAttribute(hConsole, COLOR_POI);
                 if(!print_value){
-                    cout<<A[i][j];
+                    cout<<A[i][j]<< PRINTING_CHAR;
                     def=false;
                 }
             }

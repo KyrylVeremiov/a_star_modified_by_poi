@@ -19,6 +19,18 @@ vector<pair<int,int>>  reconstruct_path(pair<int, int> start, pair<int, int> des
     return path;
 }
 
+double** multiply_matrix(double** A, int M, int N, double a){
+    double **C= new double*[M];
+
+    for (int i = 0; i < M; ++i) {
+        C[i]=new double[N];
+        for (int j = 0; j < N; ++j) {
+            C[i][j]=A[i][j]*a;
+        }
+    }
+    return C;
+}
+
 double manhattan_metric(pair<int,int> x, pair<int,int> y){
     return abs(x.first-y.first)+abs(x.second-y.second);
 }
@@ -80,7 +92,8 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,double>,map<pair<int,int>,bool
         }
         for(pair<int,int> p: POIs){
             double** kernel=get_gaussian_kernel(p,SIGMA,M,N);
-            filter= matrix_sum(filter,kernel,M,N);
+            double** kernel_scaled=multiply_matrix(kernel,M,N,A[p.first][p.second]);
+            filter= matrix_sum(filter,kernel_scaled,M,N);
         }
 
     //print filter
@@ -92,7 +105,7 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,double>,map<pair<int,int>,bool
         for(int i=0; i<M;i++){
             for (int j = 0; j < N; ++j) {
                 if(A[i][j]==CODE_EMPTY||A[i][j]==CODE_POI){
-                    A[i][j]+=filter[i][j]*FILTER_WEIGHT;
+                    A[i][j]-=filter[i][j]*FILTER_WEIGHT;
                 }
             }
         }
@@ -151,7 +164,7 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,double>,map<pair<int,int>,bool
             for(pair<int,int> n : neighbors){
                 if(!closed[n]){
                     //TODO add interesting. How much on this
-                    double n_g=g[x]+dist(n,x);
+                    double n_g=g[x]+DIST_WEIGHT*dist(n,x);
 
                     if(option_algo == 2){// A* considering POI
                         if(A[n.first][n.second] >= CODE_POI){

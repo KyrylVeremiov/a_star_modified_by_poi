@@ -155,8 +155,9 @@ pair<pair<int **,vector<pair<int,int>>>,pair<std::pair<int, int>, pair<pair<int,
         A[7][37]=CODE_POI +8;
         A[14][18]=CODE_POI+4;
         A[15][12]=CODE_POI+8;
-        A[13][9]=CODE_POI+2;
+        A[13][10]=CODE_POI+8;
         A[11][30]=CODE_POI+2;
+        A[16][34]=CODE_POI+2;
         A[25][40]=CODE_POI+8;
 //        A[9][28]=CODE_POI;
         A[21][33]=CODE_POI+4;
@@ -282,7 +283,7 @@ pair<pair<int **,vector<pair<int,int>>>,pair<std::pair<int, int>, pair<pair<int,
 
 
         A[2][10]=CODE_POI+4;
-        A[10][9]=CODE_POI;
+        A[9][9]=CODE_POI;
         A[12][22]=CODE_POI+8;
         A[18][13]=CODE_POI+4;
         A[23][22]=CODE_POI+2;

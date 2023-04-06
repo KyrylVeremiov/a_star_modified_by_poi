@@ -14,8 +14,8 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
         N=30;
     }
     else if(option==1){
-        M=20;
-        N=30;
+        M=30;
+        N=50;
     }
     else if(option==2){
         M=35;
@@ -80,56 +80,73 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
     }
     else if(option==1){
 
-        start_point={8,6};
-        destination_point={ 10,16};
+        start_point={25,3};
+        destination_point={ 3,47};
 
-        A[7][7]=CODE_BARRIER;
-        A[6][7]=CODE_BARRIER;
-        A[6][6]=CODE_BARRIER;
-        A[6][5]=CODE_BARRIER;
+        A[12][27]=CODE_BARRIER;
+        A[11][27]=CODE_BARRIER;
+        A[11][26]=CODE_BARRIER;
+        A[11][25]=CODE_BARRIER;
+        A[12][28]=CODE_BARRIER;
+        A[13][28]=CODE_BARRIER;
+        A[14][28]=CODE_BARRIER;
+        A[15][28]=CODE_BARRIER;
+        A[16][28]=CODE_BARRIER;
+        A[16][27]=CODE_BARRIER;
+        A[16][26]=CODE_BARRIER;
+        A[15][26]=CODE_BARRIER;
+        A[15][25]=CODE_BARRIER;
+        A[15][24]=CODE_BARRIER;
+        A[14][24]=CODE_BARRIER;
+        A[12][27]=CODE_BARRIER;
+        A[11][27]=CODE_BARRIER;
+        A[11][26]=CODE_BARRIER;
+        A[11][25]=CODE_BARRIER;
 
-        A[7][8]=CODE_BARRIER;
-        A[8][8]=CODE_BARRIER;
-        A[9][8]=CODE_BARRIER;
-        A[10][8]=CODE_BARRIER;
-        A[11][8]=CODE_BARRIER;
-
-
-        A[11][7]=CODE_BARRIER;
-        A[11][6]=CODE_BARRIER;
-        A[10][6]=CODE_BARRIER;
-        A[10][5]=CODE_BARRIER;
-        A[10][4]=CODE_BARRIER;
-        A[9][4]=CODE_BARRIER;
-
-
-        A[7][7]=CODE_BARRIER;
-        A[6][7]=CODE_BARRIER;
-        A[6][6]=CODE_BARRIER;
-        A[6][5]=CODE_BARRIER;
-
-        A[1][15]=CODE_BARRIER;
-        A[2][15]=CODE_BARRIER;
-        A[3][15]=CODE_BARRIER;
-        A[3][14]=CODE_BARRIER;
-        A[4][14]=CODE_BARRIER;
-        A[5][14]=CODE_BARRIER;
-        A[6][14]=CODE_BARRIER;
-        A[7][14]=CODE_BARRIER;
-        A[8][14]=CODE_BARRIER;
-        A[8][15]=CODE_BARRIER;
-        A[9][15]=CODE_BARRIER;
-        A[10][15]=CODE_BARRIER;
-        A[11][15]=CODE_BARRIER;
-        A[12][15]=CODE_BARRIER;
-        A[13][15]=CODE_BARRIER;
-        A[13][16]=CODE_BARRIER;
+        A[6][40]=CODE_BARRIER;
+        A[7][40]=CODE_BARRIER;
+        A[8][40]=CODE_BARRIER;
+        A[8][39]=CODE_BARRIER;
+        A[9][39]=CODE_BARRIER;
+        A[10][39]=CODE_BARRIER;
+        A[11][39]=CODE_BARRIER;
+        A[12][39]=CODE_BARRIER;
+        A[13][39]=CODE_BARRIER;
+        A[13][40]=CODE_BARRIER;
+        A[14][40]=CODE_BARRIER;
+        A[15][40]=CODE_BARRIER;
+        A[16][40]=CODE_BARRIER;
+        A[17][40]=CODE_BARRIER;
+        A[18][40]=CODE_BARRIER;
+        A[18][41]=CODE_BARRIER;
 
 
-        A[6][9]=CODE_POI;
+        A[7][34]=CODE_BARRIER;
+        A[8][34]=CODE_BARRIER;
+        A[9][34]=CODE_BARRIER;
+        A[10][34]=CODE_BARRIER;
+        A[11][34]=CODE_BARRIER;
+        A[12][34]=CODE_BARRIER;
+
+        A[16][37]=CODE_BARRIER;
+        A[17][36]=CODE_BARRIER;
+        A[17][37]=CODE_BARRIER;
+        A[18][37]=CODE_BARRIER;
+        A[19][37]=CODE_BARRIER;
+        A[20][37]=CODE_BARRIER;
+        A[21][37]=CODE_BARRIER;
+
+
+
+        A[7][37]=CODE_POI +9;
         A[14][18]=CODE_POI+4;
         A[15][12]=CODE_POI+9;
         A[13][9]=CODE_POI+2;
+        A[11][30]=CODE_POI+2;
+        A[25][40]=CODE_POI+9;
+//        A[9][28]=CODE_POI;
+        A[21][33]=CODE_POI+4;
+//        A[26][25]=CODE_POI;
     }
     else if(option==2){
         start_point={33,57};
@@ -217,11 +234,13 @@ std::pair<int **,std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,st
         A[24][20]=CODE_BARRIER;
         A[25][20]=CODE_BARRIER;
         A[26][20]=CODE_BARRIER;
-        A[26][21]=CODE_BARRIER;
+        A[27][20]=CODE_BARRIER;
         A[26][19]=CODE_BARRIER;
         A[26][18]=CODE_BARRIER;
         A[26][17]=CODE_BARRIER;
         A[26][16]=CODE_BARRIER;
+
+        A[26][38]=CODE_BARRIER;
 
         A[25][23]=CODE_BARRIER;
         A[26][23]=CODE_BARRIER;

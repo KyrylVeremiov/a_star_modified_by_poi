@@ -8,7 +8,53 @@ using namespace std;
 
 #pragma once
 void print_description(){
-    cout<<"DFGDFGSDFGSDFGSDFGSDFGSDFGSDFG"<<endl;
+    cout<< "Designations for cells: \n";
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    SetConsoleTextAttribute(hConsole, COLOR_EMPTY);
+    cout<<PRINTING_CHAR<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -empty; ";
+
+    SetConsoleTextAttribute(hConsole, COLOR_POI);
+    cout<<CODE_POI<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -point of interest; ";
+
+    SetConsoleTextAttribute(hConsole, COLOR_BARRIER);
+    cout<<PRINTING_CHAR<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -barrier; ";
+
+    SetConsoleTextAttribute(hConsole, COLOR_START);
+    cout<<"S"<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -start; ";
+
+    cout<<endl;
+
+    SetConsoleTextAttribute(hConsole, COLOR_DESTINATION);
+    cout<<"D"<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -destination; ";
+
+    SetConsoleTextAttribute(hConsole, COLOR_PATH);
+    cout<<PRINTING_CHAR<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -interesting path; ";
+
+    SetConsoleTextAttribute(hConsole, COLOR_SECOND_PATH);
+    cout<<PRINTING_CHAR<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -fast path; ";
+
+    SetConsoleTextAttribute(hConsole, COLOR_VIEWED);
+    cout<<PRINTING_CHAR<<PRINTING_CHAR;
+    SetConsoleTextAttribute(hConsole, COLOR_STANDARD);
+    cout<<" -viewed cell; ";
+
+    cout<<endl;
 }
 void drawMatrix(int** A,int M, int N, const map<pair<int,int>,int>& value,bool print_value){
     HANDLE  hConsole;

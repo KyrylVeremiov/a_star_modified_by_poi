@@ -7,10 +7,9 @@
 #include "constants.h"
 #include "algo_path.h"
 
-
 int main(){
     print_description();
-    pair<int**,pair<pair<int,int>,pair<pair<int,int>,pair<int,int>>>> initialize_result=initialize_graph(2);
+    pair<int**,pair<pair<int,int>,pair<pair<int,int>,pair<int,int>>>> initialize_result=initialize_graph(1);
     int ** Graph= initialize_result.first;
     int M=initialize_result.second.first.first;
     int N=initialize_result.second.first.second;
@@ -34,6 +33,7 @@ int main(){
         draw_path(Graph,M,N,second_path,second_closed,false,true);
     }
 
+//    drawMatrix(Graph,M,N,second_value, false);
     drawMatrix(Graph,M,N,value, false);
     return 0;
 }

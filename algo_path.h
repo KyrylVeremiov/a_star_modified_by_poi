@@ -40,7 +40,8 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
     }
 
     float (*dist) (pair<int,int> , pair<int,int> );
-    dist= &manhattan_metric;
+//    dist= &manhattan_metric;
+    dist= &euclidean_metric;
 
     map<pair<int,int>,bool> closed;
     multimap<int,pair<int,int>> opened;

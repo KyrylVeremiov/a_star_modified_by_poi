@@ -18,6 +18,7 @@ const int COLOR_START=160;
 const int COLOR_DESTINATION=96;
 const int COLOR_VIEWED=48;
 const int COLOR_SECOND_PATH=80;
+const int COLOR_STANDARD=15;
 
 const char PRINTING_CHAR=' ';
 

@@ -49,10 +49,13 @@ double** copy_matrix(int** G,int M, int N){
 
                 option_kernel==0 -> no kernel
                 option_kernel==1 -> using kernel
+
+                option_int==0 -> use double type for value, open
+                option_int==1 -> use int for value, open
 **/
-pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
+pair<vector<pair<int,int>>,pair<map<pair<int,int>,double>,map<pair<int,int>,bool>>>
         get_path(int** G,vector<pair<int,int>> POIs,int M,int N,pair<int,int> start,pair<int,int> destination,
-                 int  option_algo,int option_kernel){
+                 int  option_algo,int option_kernel, int option_int){
     double (*h) (pair<int,int> , pair<int,int> );//where value- floor
     h= &euclidean_metric;
     //    h= &manhattan_metric;
@@ -68,7 +71,7 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
     double** A=copy_matrix(G,M,N);
 
     double** filter= new double* [M];
-    if(option_kernel){
+    if(option_kernel==1){
         for (int i = 0; i < M; ++i) {
             filter[i]=new double[N];
             for (int j = 0; j < N; ++j) {
@@ -79,7 +82,11 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
             double** kernel=get_gaussian_kernel(p,SIGMA,M,N);
             filter= matrix_sum(filter,kernel,M,N);
         }
+
+    //print filter
+//    print_kernel(filter,M,N);
     }
+
 
     if(option_kernel==1&& option_algo==1){
         for(int i=0; i<M;i++){
@@ -92,9 +99,9 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
     }
 
     map<pair<int,int>,bool> closed;
-    multimap<int,pair<int,int>> opened;
-    map <pair<int,int>,int> g;
-    map <pair<int,int>,int> value; //==f(x)=g(x)+h(x), cost from start + heuristic // open set
+    multimap<double,pair<int,int>> opened;
+    map <pair<int,int>,double> g;
+    map <pair<int,int>,double> value; //==f(x)=g(x)+h(x), cost from start + heuristic // open set
     map <pair<int,int>,pair<int,int>> previous;
 
 
@@ -146,19 +153,29 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,int>,map<pair<int,int>,bool>>>
                     //TODO add interesting. How much on this
                     double n_g=g[x]+dist(n,x);
 
-                    if(option_algo == 2){
-                        if(option_kernel==0&& A[n.first][n.second] >= CODE_POI){// A* considering POI
+                    if(option_algo == 2){// A* considering POI
+                        if(A[n.first][n.second] >= CODE_POI){
                             n_g-=POI_WEIGHT*A[n.first][n.second];
                         }
-                        else if(option_kernel==1){
-                            n_g-=FILTER_WEIGHT*filter[n.first][n.second]+POI_WEIGHT*A[n.first][n.second];
+                        if(option_kernel==1){
+                            n_g-=FILTER_WEIGHT*filter[n.first][n.second];
                         }
                     }
-                    if(g.find(n)==g.end() ||g[n]>n_g){
+                    if(g.find(n)==g.end() ||n_g<g[n]){
+                        ///CAN BE FOR RETURNING BACK AFTER VISITING A POI
+//                        closed[n]= false;
+
                         previous[n]=x;
-                        g[n]=n_g;
-                        value[n]=n_g+h(n,destination);
-                        opened.insert({value[n],n});
+                        if(option_int==0){
+                            g[n]=(int)n_g;
+                            value[n]=floor(n_g+H_WEIGHT*h(n,destination));
+                            opened.insert({value[n],n});
+                        }
+                        else if(option_int==1){
+                            g[n]=n_g;
+                            value[n]=n_g+H_WEIGHT*h(n,destination);
+                            opened.insert({value[n],n});
+                        }
                     }
                 }
             }

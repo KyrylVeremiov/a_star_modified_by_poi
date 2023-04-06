@@ -56,7 +56,7 @@ void print_description(){
 
     cout<<endl;
 }
-void drawMatrix(int** A,int M, int N, const map<pair<int,int>,int>& value,bool print_value){
+void drawMatrix(int** A,int M, int N, const map<pair<int,int>,double>& value,bool print_value){
     HANDLE  hConsole;
 
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -110,14 +110,17 @@ void drawMatrix(int** A,int M, int N, const map<pair<int,int>,int>& value,bool p
                     auto it=value.find({i,j});
                     if(it!=value.end()){
                         int pr=it->second;
-                        cout<< pr;
+                        cout<<(int)(pr);
                         if(std::to_string(pr).length()<=1){
                             cout<<PRINTING_CHAR;
                         }
                     }
                     else{
                         if(A[i][j]>=CODE_POI){
-                            cout<<A[i][j]<<((std::to_string(A[i][j]).length()>1)? "":std::to_string(PRINTING_CHAR));
+                            cout<<A[i][j];
+                            if(std::to_string(A[i][j]).length()<=1){
+                                cout<<PRINTING_CHAR;
+                            }
                         }
                         else{
                             cout<<CODE_EMPTY<<PRINTING_CHAR;

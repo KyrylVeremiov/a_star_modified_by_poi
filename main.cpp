@@ -10,7 +10,8 @@
 
 int main(){
     print_description();
-    pair<pair<int**,vector<pair<int,int>>>,pair<pair<int,int>,pair<pair<int,int>,pair<int,int>>>> initialize_result=initialize_graph(1);
+    pair<pair<int**,vector<pair<int,int>>>,pair<pair<int,int>,pair<pair<int,int>,pair<int,int>>>> initialize_result=
+            initialize_graph(2);
     int ** Graph= initialize_result.first.first;
     vector<pair<int,int>> POIs= initialize_result.first.second;
     int M=initialize_result.second.first.first;
@@ -18,17 +19,17 @@ int main(){
     pair<int,int> start_point=initialize_result.second.second.first;
     pair<int,int> destination_point= initialize_result.second.second.second;
 
-    auto result= get_path(Graph,POIs,M,N,start_point,destination_point, 2,1);
+    auto result= get_path(Graph,POIs,M,N,start_point,destination_point, 2,1,0);
     vector<pair<int,int>> path=result.first;
-    map<pair<int, int>, int> value = result.second.first;
+    map<pair<int, int>, double> value = result.second.first;
     map<pair<int, int>, bool> closed = result.second.second;
     if(!path.empty()){
         draw_path(Graph,M,N,path,closed,true,false);
     }
 
-    auto second_result= get_path(Graph,POIs,M,N,start_point,destination_point, 1,0);
+    auto second_result= get_path(Graph,POIs,M,N,start_point,destination_point, 1,0,1);
     vector<pair<int,int>> second_path=second_result.first;
-    map<pair<int, int>, int> second_value = second_result.second.first;
+    map<pair<int, int>, double> second_value = second_result.second.first;
     map<pair<int, int>, bool> second_closed = second_result.second.second;
 
     if(!path.empty()){

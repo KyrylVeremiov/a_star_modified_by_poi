@@ -163,7 +163,6 @@ pair<vector<pair<int,int>>,pair<map<pair<int,int>,double>,map<pair<int,int>,bool
 
             for(pair<int,int> n : neighbors){
                 if(!closed[n]){
-                    //TODO add interesting. How much on this
                     double n_g=g[x]+DIST_WEIGHT*dist(n,x);
 
                     if(option_algo == 2){// A* considering POI

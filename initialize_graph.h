@@ -88,9 +88,13 @@ pair<pair<int **,vector<pair<int,int>>>,pair<std::pair<int, int>, pair<pair<int,
         A[12][16]=CODE_BARRIER;
 
         A[6][9]=CODE_POI;
-        A[14][18]=CODE_POI+4;
-        A[15][12]=CODE_POI+8;
-        A[13][9]=CODE_POI+2;
+        A[12][18]=CODE_POI+4;
+        A[14][12]=CODE_POI+7;
+        A[12][10]=CODE_POI+6;
+
+        A[17][5]=CODE_POI+2;
+        A[5][20]=CODE_POI+3;
+
     }
     else if(option==1){
 
@@ -282,14 +286,23 @@ pair<pair<int **,vector<pair<int,int>>>,pair<std::pair<int, int>, pair<pair<int,
         A[27][52]=CODE_BARRIER;
 
 
-        A[2][10]=CODE_POI+4;
+        A[24][42]=CODE_BARRIER;
+        A[25][42]=CODE_BARRIER;
+        A[26][42]=CODE_BARRIER;
+        A[27][42]=CODE_BARRIER;
+        A[28][42]=CODE_BARRIER;
+        A[29][42]=CODE_BARRIER;
+        A[30][42]=CODE_BARRIER;
+
+
+        A[2][10]=CODE_POI+7;
         A[9][9]=CODE_POI;
         A[12][22]=CODE_POI+8;
         A[18][13]=CODE_POI+4;
         A[23][22]=CODE_POI+2;
         A[27][30]=CODE_POI+5;
         A[31][27]=CODE_POI+1;
-        A[32][36]=CODE_POI+7;
+        A[32][37]=CODE_POI+7;
         A[33][29]=CODE_POI+8;
         A[32][24]=CODE_POI+4;
     }

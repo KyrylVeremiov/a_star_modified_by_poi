@@ -11,7 +11,7 @@
 int main(){
     print_description();
     pair<pair<int**,vector<pair<int,int>>>,pair<pair<int,int>,pair<pair<int,int>,pair<int,int>>>> initialize_result=
-            initialize_graph(1);
+            initialize_graph(2);
     int ** Graph= initialize_result.first.first;
     vector<pair<int,int>> POIs= initialize_result.first.second;
     int M=initialize_result.second.first.first;
